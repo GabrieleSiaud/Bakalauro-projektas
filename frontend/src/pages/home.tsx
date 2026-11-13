@@ -32,9 +32,9 @@ function Home() {
                             <Link to="/register" className="primary-button">
                                 Pradėti mokytis →
                             </Link>
-                            <Link to="#apie" className="secondary-button">
+                            <a href="#apie" className="secondary-button">
                                 Sužinoti daugiau
-                            </Link>
+                            </a>
                         </div>
                     </div>
 

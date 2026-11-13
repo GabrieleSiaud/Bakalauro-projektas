@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "../styles/register.css";
 import "../styles/App.css";
 import { Link } from "react-router-dom";
