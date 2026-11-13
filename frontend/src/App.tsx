@@ -4,6 +4,7 @@ import './App.css'
 function App() {
     return (
         <>
+            <body>
             <header className="header">
                 <a href="/" className="logo">Šaltinis<span>.</span></a>
 
@@ -38,32 +39,7 @@ function App() {
                     </div>
 
                     <div className="hero-visual">
-                        <div className="visual-circle"></div>
-
-                        <div className="study-card">
-                            <div className="card-icon">📚</div>
-                            <h3>Tavo mokymosi erdvė</h3>
-                            <p>Viskas, ko reikia pasiruošti egzaminams.</p>
-
-                            <div className="progress-info">
-                                <span>Mokymosi pažanga</span>
-                                <strong>75%</strong>
-                            </div>
-
-                            <div className="progress-bar">
-                                <div></div>
-                            </div>
-
-                            <div className="mini-cards">
-                                <div>📝 <span>Testai</span></div>
-                                <div>🎯 <span>Tikslai</span></div>
-                            </div>
-                        </div>
-
-                        <div className="floating-card">
-                            <span>✨</span>
-                            Žingsnis po žingsnio!
-                        </div>
+                        <img src="research-paper.png" alt="mokslas" className="hero-photo"></img>
                     </div>
                 </section>
 
@@ -82,8 +58,6 @@ function App() {
                     </div>
 
                     <div className="about-cards">
-
-                        {/* MOKINIAMS */}
                         <div className="about-card-wrapper">
                             <img src="/mokinys.png" alt="Mokinys" className="role-image" />
 
@@ -119,14 +93,9 @@ function App() {
                                         </div>
                                     </li>
                                 </ul>
-
-                                <a href="/register" className="card-link">
-                                    Pradėk mokytis →
-                                </a>
                             </div>
                         </div>
 
-                        {/* MOKYTOJAMS */}
                         <div className="about-card-wrapper">
                             <img src="/teacher.png" alt="Mokytojas" className="role-image" />
 
@@ -143,7 +112,7 @@ function App() {
                                     <li>
                                         <span>📚</span>
                                         <div>
-                                            <strong>Kelki teorinę medžiagą</strong>
+                                            <strong>Kelk teorinę medžiagą</strong>
                                             <p>Kurki pamokas, pateik teoriją ir papildomą mokymosi informaciją.</p>
                                         </div>
                                     </li>
@@ -162,10 +131,6 @@ function App() {
                                         </div>
                                     </li>
                                 </ul>
-
-                                <a href="/register" className="card-link">
-                                    Tapk mokytoju →
-                                </a>
                             </div>
                         </div>
 
@@ -173,13 +138,21 @@ function App() {
                 </section>
 
 
+
                 <section className="bottom-cta">
-                    <h2>Pasiruošimas prasideda šiandien!</h2>
-                    <p>Susikurk paskyrą ir pradėk siekti savo tikslų.</p>
-                    <a href="/register" className="primary-button">
-                        Prisijunk prie Šaltinio →
-                    </a>
+                    <h2>Pasiruošimas prasideda šiandien, <span>prisijunk!</span></h2>
+                    <img src="reading.png" alt="Knyga" className="book-image"></img>
+                    <div className="role-options">
+                        <a href="/register" className="role-button">
+                            Esu mokinys
+                        </a>
+
+                        <a href="/register" className="role-button">
+                            Esu mokytojas
+                        </a>
+                    </div>
                 </section>
+
 
             </main>
 
@@ -187,6 +160,7 @@ function App() {
                 <a href="/" className="logo">Šaltinis<span>.</span></a>
                 <p>© 2026 Šaltinis. Mokykis ir siek daugiau.</p>
             </footer>
+            </body>
         </>
     )
 }
