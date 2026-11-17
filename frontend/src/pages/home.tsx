@@ -52,6 +52,7 @@ function Home() {
                             <span>tavo pasiruošimui VBE.</span>
                         </h2>
                         <p>
+                            <br />
                             Viena platforma, kurioje gali mokytis, pasitikrinti žinias
                             ir stebėti savo tobulėjimą arba kurti mokymosi turinį kitiems.
                         </p>

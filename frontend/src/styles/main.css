@@ -2,7 +2,7 @@
 /* ---------- HERO ---------- */
 
 .hero {
-    padding: 75px 10%;
+    padding: 130px 10%;
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     align-items: center;
