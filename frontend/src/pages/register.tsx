@@ -5,20 +5,52 @@ import { Link } from "react-router-dom";
 
 function Register() {
     const [role, setRole] = useState<"mokinys" | "mokytojas" | null>(null);
+    const [vardas, setVardas] = useState("");
+    const [pavarde, setPavarde] = useState("");
+    const [elPastas, setElPastas] = useState("");
+    const [slaptazodis, setSlaptazodis] = useState("");
     const [teacherCode, setTeacherCode] = useState("");
     const [codeError, setCodeError] = useState("");
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (role === "mokytojas" && teacherCode.trim().toLowerCase() !== "mokytojas") {
-            setCodeError("Neteisingas patvirtinimo kodas!");
+        if (role === "mokytojas" && teacherCode.trim() === "") {
+            setCodeError("Įveskite patvirtinimo kodą!");
             return;
         }
 
-        setCodeError("");
-        alert("Patvirtinimas sėkmingas!");
+        try {
+            const response = await fetch("http://localhost:8080/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    vardas: vardas,
+                    pavarde: pavarde,
+                    el_pastas: elPastas,
+                    slaptazodis: slaptazodis,
+                    role: role,
+                    teacherCode: teacherCode
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.error || data.message || "Registracijos klaida");
+                return;
+            }
+
+            alert("Registracija sėkminga!");
+        } catch (error) {
+            console.error("Registracijos klaida:", error);
+            alert("Nepavyko susisiekti su serveriu.");
+        }
     };
+
 
     return (
         <>
@@ -68,17 +100,43 @@ function Register() {
                         <p>Registruojatės kaip {role}</p>
 
                         <form onSubmit={handleSubmit}>
+
                             <label>Vardas</label>
-                            <input type="text" placeholder="Vardas" required />
+                            <input
+                                type="text"
+                                placeholder="Vardas"
+                                value={vardas}
+                                onChange={(e) => setVardas(e.target.value)}
+                                required
+                            />
 
                             <label>Pavardė</label>
-                            <input type="text" placeholder="Pavardė" required />
+                            <input
+                                type="text"
+                                placeholder="Pavardė"
+                                value={pavarde}
+                                onChange={(e) => setPavarde(e.target.value)}
+                                required
+                            />
 
                             <label>El. paštas</label>
-                            <input type="email" placeholder="El. paštas" required />
+                            <input
+                                type="email"
+                                placeholder="El. paštas"
+                                value={elPastas}
+                                onChange={(e) => setElPastas(e.target.value)}
+                                required
+                            />
 
                             <label>Slaptažodis</label>
-                            <input type="password" placeholder="Slaptažodis" required />
+                            <input
+                                type="password"
+                                placeholder="Slaptažodis"
+                                value={slaptazodis}
+                                onChange={(e) => setSlaptazodis(e.target.value)}
+                                required
+                            />
+
 
                             {role === "mokytojas" && (
                                 <>
