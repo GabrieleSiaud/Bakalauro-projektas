@@ -6,4 +6,4 @@ function studentMain() {
     );
 }
 
-export default studentMain();
+export default studentMain;

@@ -3,8 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import Register from "./pages/register";
 import Login from "./pages/login.tsx";
-import StudentMain from "./pages/studentMain.tsx"; 
 import TeacherMain from "./pages/teacherMain.tsx";
+import StudentMain from "./pages/studentMain.tsx";
 
 function App() {
     return (

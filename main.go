@@ -35,5 +35,5 @@ func main() {
 
 	log.Println("Serveris paleistas: http://localhost:8080")
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	http.ListenAndServe(":8080", EnableCORS(http.DefaultServeMux))
 }
