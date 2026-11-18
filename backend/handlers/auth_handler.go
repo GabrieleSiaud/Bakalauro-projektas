@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -94,77 +95,67 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
-	var loginRequest LoginRequest
-
-	err := json.NewDecoder(r.Body).Decode(&loginRequest)
-	if err != nil {
-		http.Error(w, "Neteisingas JSON formatas", http.StatusBadRequest)
+	if r.Method != http.MethodPost {
+		http.Error(w, "Netinkamas užklausos metodas", http.StatusMethodNotAllowed)
 		return
 	}
 
-	if loginRequest.El_pastas == "" || loginRequest.Slaptazodis == "" {
-		http.Error(w, "Įrašykite visus duomenis", http.StatusBadRequest)
+	var req struct {
+		ElPastas    string `json:"el_pastas"`
+		Slaptazodis string `json:"slaptazodis"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Netinkami duomenys", http.StatusBadRequest)
 		return
 	}
 
-	var (
-		naudotojoID int
-		slaptazodis string
-		role        string
-	)
+	// Randame naudotojo ID ir slaptažodžio hash'ą
+	// (jei stulpelis vadinasi kitaip, pakeisk "slaptazodis")
+	var id int
+	var hash string
+	var role string
 
-	err = h.DB.QueryRow(
-		r.Context(),
-		`SELECT id, slaptazodis, role
-         FROM naudotojas
-         WHERE el_pastas = $1`,
-		loginRequest.El_pastas,
-	).Scan(&naudotojoID, &slaptazodis, &role)
+	err := h.DB.QueryRow(r.Context(),
+		`SELECT id, slaptazodis, role FROM naudotojas WHERE el_pastas = $1`,
+		req.ElPastas,
+	).Scan(&id, &hash, &role)
 
-	if err != nil {
+	if err != nil || bcrypt.CompareHashAndPassword([]byte(hash), []byte(req.Slaptazodis)) != nil {
 		http.Error(w, "Neteisingas el. paštas arba slaptažodis", http.StatusUnauthorized)
 		return
 	}
 
-	err = bcrypt.CompareHashAndPassword(
-		[]byte(slaptazodis),
-		[]byte(loginRequest.Slaptazodis),
-	)
-
-	if err != nil {
-		http.Error(w, "Neteisingas el. paštas arba slaptažodis", http.StatusUnauthorized)
+	secret := os.Getenv("JWT_SECRET")
+	if secret == "" {
+		fmt.Println("KLAIDA: JWT_SECRET nenustatytas")
+		http.Error(w, "Serverio klaida", http.StatusInternalServerError)
 		return
 	}
 
+	// Claim pavadinimas "naudotojo_id" turi sutapti su Me handleriu
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user_id": naudotojoID,
-		"role":    role,
-		"exp":     time.Now().Add(24 * time.Hour).Unix(),
+		"naudotojo_id": id,
+		"exp":          time.Now().Add(24 * time.Hour).Unix(),
 	})
 
-	secret := []byte(os.Getenv("JWT_SECRET"))
-
-	tokenString, err := token.SignedString(secret)
+	tokenString, err := token.SignedString([]byte(secret))
 	if err != nil {
-		http.Error(w, "Nepavyko sukurti prisijungimo rakto", http.StatusUnauthorized)
+		http.Error(w, "Nepavyko sukurti tokeno", http.StatusInternalServerError)
 		return
 	}
 
 	http.SetCookie(w, &http.Cookie{
-		Name:     "auth_token",
+		Name:     "auth_token", // toks pat vardas kaip Me handleryje
 		Value:    tokenString,
 		Path:     "/",
 		HttpOnly: true,
-		Secure:   false,
+		Secure:   false, // localhost be HTTPS
 		SameSite: http.SameSiteLaxMode,
-		MaxAge:   86400,
+		Expires:  time.Now().Add(24 * time.Hour),
 	})
 
 	w.Header().Set("Content-Type", "application/json")
-
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"message": "Prisijungimas sėkmingas",
-		"user_id": naudotojoID,
-		"role":    role,
-	})
+	// Login.tsx naudoja data.role nukreipimui (/student arba /teacher)
+	json.NewEncoder(w).Encode(map[string]string{"role": role})
 }

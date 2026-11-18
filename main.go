@@ -32,6 +32,7 @@ func main() {
 	// API maršrutai
 	http.HandleFunc("/api/register", h.Register)
 	http.HandleFunc("/api/login", h.Login)
+	http.HandleFunc("/api/me", h.Me)
 
 	log.Println("Serveris paleistas: http://localhost:8080")
 

@@ -5,6 +5,7 @@ import Register from "./pages/register";
 import Login from "./pages/login.tsx";
 import TeacherMain from "./pages/teacherMain.tsx";
 import StudentMain from "./pages/studentMain.tsx";
+import Profile from "./pages/profile.tsx";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
 
                 <Route path="/student" element={<StudentMain />} />
                 <Route path="/teacher" element={<TeacherMain />} />
+                <Route path="/profile" element={<Profile />} />
             </Routes>
     );
 }

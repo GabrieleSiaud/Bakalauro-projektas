@@ -1,0 +1,240 @@
+
+/* ---------- PAGRINDINIS IŠDĖSTYMAS ---------- */
+
+.dashboard {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+
+    width: 86%;
+    max-width: 1400px;
+    min-height: 650px;
+    margin: 45px auto 60px;
+    box-sizing: border-box;
+}
+
+/* ---------- HEADER ---------- */
+
+
+
+
+/* ---------- REZULTATŲ APŽVALGA ---------- */
+
+.results {
+    flex: 1;
+    min-width: 0;
+    min-height: 400px;
+
+    padding: 28px;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border: 1px solid #eeeef5;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(40, 30, 70, 0.04);
+}
+
+.results h2 {
+    margin: 0 0 8px;
+    color: #302b3a;
+    font-size: 21px;
+    font-weight: 750;
+}
+
+.results-description {
+    margin: 0 0 25px;
+    color: #9995a5;
+    font-size: 13px;
+}
+
+.students {
+    padding: 22px;
+    background: #faf9ff;
+    border: 1px solid #efedfa;
+    border-radius: 13px;
+}
+
+.students h3 {
+    margin: 0 0 8px;
+    color: #423b50;
+    font-size: 16px;
+}
+
+.students p {
+    margin: 0;
+    color: #9995a5;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* ---------- STATISTIKOS KORTELĖS ---------- */
+
+.containers {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    width: 230px;
+    flex-shrink: 0;
+}
+
+.stat-card {
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #eeeef5;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(40, 30, 70, 0.04);
+    transition: 0.2s;
+}
+
+.stat-card p {
+    margin: 0 0 12px;
+    color: #888397;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stat-card h3 {
+    margin: 0;
+    color: #7564e8;
+    font-size: 29px;
+    font-weight: 750;
+}
+
+/* ---------- MOKINIO PAGRINDINIS PUSLAPIS ---------- */
+
+.student-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.student-section {
+    width: 100%;
+}
+
+.student-section h2 {
+    margin: 0 0 18px;
+    color: #302b3a;
+    font-size: 21px;
+    font-weight: 750;
+}
+
+/* Dvi kortelės vienoje eilutėje */
+.student-row {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.student-card {
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #eeeef5;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(40, 30, 70, 0.04);
+}
+
+.student-card h3 {
+    margin: 0 0 12px;
+    color: #315d82;
+    font-size: 17px;
+}
+
+.student-card p {
+    color: #888397;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.student-card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #286394;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.student-card a:hover {
+    text-decoration: underline;
+}
+
+.logout {
+    color: red;
+}
+
+/* Prisitaikymas mažesniems ekranams */
+@media (max-width: 1000px) {
+    .student-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 1000px) {
+    .dashboard {
+        width: 92%;
+        flex-wrap: wrap;
+    }
+
+    .side-menu {
+        width: 100%;
+        min-height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .containers {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .stat-card {
+        flex: 1;
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard {
+        width: 92%;
+        margin: 25px auto;
+        gap: 15px;
+    }
+
+    .header {
+        padding: 0 15px;
+    }
+
+    .header p {
+        font-size: 12px;
+    }
+
+    .side-menu {
+        gap: 5px;
+        padding: 12px;
+    }
+
+    .menu-link {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .results {
+        padding: 20px;
+    }
+
+    .containers {
+        flex-direction: column;
+    }
+
+    .stat-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
