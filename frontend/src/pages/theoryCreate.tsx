@@ -171,20 +171,13 @@ function TheoryCreate() {
                         Pagrindinis
                     </Link>
 
-                    <Link
-                        to="/theoryCreate"
-                        className="menu-link"
-                        style={{ fontWeight: "bold", color: "#8E3EE6" }}
+                    <Link to="/theoryCreate" className="menu-link" style={{ fontWeight: "bold", color: "#8E3EE6" }}
                     >
                         Nauja teorinė medžiaga +
                     </Link>
 
-                    <Link to="/teacher/create" className="menu-link">
+                    <Link to="/teacher/create" className="menu-link" style={{fontWeight: "bold"}}>
                         Naujas testas +
-                    </Link>
-
-                    <Link to="/teacher/history" className="menu-link">
-                        Jūsų istorija
                     </Link>
 
                     <Link to="/profile" className="menu-link">
@@ -289,11 +282,6 @@ function TheoryCreate() {
                         {mode === "write" && (
 
                             <div className="theory-field">
-
-                                <label htmlFor="turinys">
-                                    Teorijos tekstas
-                                </label>
-
                                 <textarea
                                     id="turinys"
                                     placeholder="Pradėkite rašyti teorinę medžiagą..."
@@ -301,12 +289,6 @@ function TheoryCreate() {
                                     onChange={(e) => setTurinys(e.target.value)}
                                     rows={12}
                                 />
-
-                                <span className="theory-hint">
-                                    Čia galite rašyti ir redaguoti mokiniams
-                                    skirtą teorinę medžiagą.
-                                </span>
-
                             </div>
 
                         )}
@@ -379,9 +361,6 @@ function TheoryCreate() {
                             </p>
                         )}
 
-
-                        {/* Mygtukai */}
-
                         <div className="theory-actions">
 
                             <Link
@@ -398,7 +377,7 @@ function TheoryCreate() {
                             >
                                 {loading
                                     ? "Saugoma..."
-                                    : "Išsaugoti teoriją"}
+                                    : "Išsaugoti"}
                             </button>
 
                         </div>

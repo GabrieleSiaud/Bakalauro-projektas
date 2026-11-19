@@ -47,10 +47,6 @@ function Profile() {
                                 Naujas testas +
                             </Link>
 
-                            <Link to="/teacher/create" className="menu-link">
-                                Jūsų istorija
-                            </Link>
-
                             <Link to="/profile" className="menu-link" style={{ fontWeight: "bold", color: "#8E3EE6" }}>
                                 Profilis
                             </Link>
@@ -100,7 +96,19 @@ function Profile() {
                             {vardas.charAt(0).toUpperCase()}
                         </div>
 
-                        <h1>{pilnasVardas}</h1>
+                        <div className="profile-content-text">
+                            <div className="profile-name">
+                                <h1>{pilnasVardas}</h1>
+                            </div>
+
+                            <div className="profile-qr">
+                                {mokytojas ? (
+                                    <img src="qr-code.png" alt="QR kodas" className="sideimg"></img>
+                                ) : (
+                                    <img src="scanner.png" alt="Skanavimas" className="sideimg"></img>
+                                )}
+                            </div>
+                        </div>
                     </section>
 
                     <section className="profile-card">

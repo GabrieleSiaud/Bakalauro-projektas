@@ -132,6 +132,26 @@
     margin: 0;
 }
 
+.profile-content-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+}
+
+.profile-name {
+    text-align: left;
+}
+
+.profile-qr {
+    text-align: right;
+}
+
+.sideimg {
+    margin-top: 40px;
+    width: 50px;
+}
 /* ---------- ATSIJUNGIMO NUORODA ---------- */
 
 .logout {

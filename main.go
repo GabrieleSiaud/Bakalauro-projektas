@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
 	"vbe-platform/backend/handlers"
+	"vbe-platform/backend/routes"
 	"vbe-platform/db"
 
 	"github.com/joho/godotenv"
@@ -29,13 +31,12 @@ func main() {
 		DB: conn,
 	}
 
-	// API maršrutai
-	http.HandleFunc("/api/register", h.Register)
-	http.HandleFunc("/api/login", h.Login)
-	http.HandleFunc("/api/me", h.Me)
-	http.HandleFunc("/api/theoryCreate", h.CreateTheory)
+	router := routes.SetupRoutes(h)
 
 	log.Println("Serveris paleistas: http://localhost:8080")
 
-	http.ListenAndServe(":8080", EnableCORS(http.DefaultServeMux))
+	err = http.ListenAndServe(":8080", EnableCORS(router))
+	if err != nil {
+		log.Fatal("Serverio paleidimo klaida:", err)
+	}
 }

@@ -36,10 +36,6 @@ function TeacherMain() {
                         Naujas testas +
                     </Link>
 
-                    <Link to="/teacher/create" className="menu-link">
-                        Jūsų istorija
-                    </Link>
-
                     <Link to="/profile" className="menu-link">
                         Profilis
                     </Link>
