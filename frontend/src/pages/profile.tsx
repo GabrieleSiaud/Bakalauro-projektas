@@ -39,7 +39,7 @@ function Profile() {
                                 Pagrindinis
                             </Link>
 
-                            <Link to="/teacher/create" className="menu-link" style={{ fontWeight: "bold" }}>
+                            <Link to="/theoryCreate" className="menu-link" style={{ fontWeight: "bold" }}>
                                 Nauja teorinė medžiaga +
                             </Link>
 
@@ -81,7 +81,7 @@ function Profile() {
                             Pažangos stebėjimas
                         </Link>
 
-                        <Link to="/profile" className="menu-link">
+                        <Link to="/profile" className="menu-link" style={{ fontWeight: "bold", color: "#8E3EE6" }}>
                             Profilis
                         </Link>
 

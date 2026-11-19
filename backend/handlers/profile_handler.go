@@ -15,7 +15,6 @@ func (h *Handler) Me(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Gauname prisijungimo slapuką
 	cookie, err := r.Cookie("auth_token")
 	if err != nil {
 		fmt.Println("Me: slapuko klaida:", err)
@@ -23,7 +22,6 @@ func (h *Handler) Me(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Tikriname JWT tokeną
 	secret := os.Getenv("JWT_SECRET")
 	if secret == "" {
 		fmt.Println("Me: KLAIDA – JWT_SECRET nenustatytas")
@@ -45,7 +43,6 @@ func (h *Handler) Me(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Gauname naudotojo ID iš tokeno
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
 		http.Error(w, "Netinkami tokeno duomenys", http.StatusUnauthorized)
@@ -59,7 +56,6 @@ func (h *Handler) Me(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Gauname naudotojo informaciją iš DB
 	var naudotojas struct {
 		ID       int    `json:"id"`
 		Vardas   string `json:"vardas"`
@@ -87,7 +83,6 @@ func (h *Handler) Me(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Grąžiname duomenis React programai
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(naudotojas)
 }

@@ -33,6 +33,7 @@ func main() {
 	http.HandleFunc("/api/register", h.Register)
 	http.HandleFunc("/api/login", h.Login)
 	http.HandleFunc("/api/me", h.Me)
+	http.HandleFunc("/api/theoryCreate", h.CreateTheory)
 
 	log.Println("Serveris paleistas: http://localhost:8080")
 

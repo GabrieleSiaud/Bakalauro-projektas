@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -31,18 +30,9 @@ type LoginRequest struct {
 }
 
 func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Metodas neleidžiamas", http.StatusMethodNotAllowed)
-		return
-	}
-
 	var request RegisterRequest
 
 	err := json.NewDecoder(r.Body).Decode(&request)
-	if err != nil {
-		http.Error(w, "Neteisingas JSON formatas", http.StatusBadRequest)
-		return
-	}
 
 	if request.Vardas == "" || request.Pavarde == "" || request.El_pastas == "" || request.Slaptazodis == "" {
 		http.Error(w, "Įveskite visus duomenis", http.StatusBadRequest)
@@ -80,7 +70,6 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	).Scan(&naudotojoID)
 
 	if err != nil {
-		log.Println("REGISTRACIJOS KLAIDA:", err)
 		http.Error(w, "Registracija nepavyko", http.StatusBadRequest)
 		return
 	}
@@ -110,8 +99,6 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Randame naudotojo ID ir slaptažodžio hash'ą
-	// (jei stulpelis vadinasi kitaip, pakeisk "slaptazodis")
 	var id int
 	var hash string
 	var role string
@@ -133,7 +120,6 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Claim pavadinimas "naudotojo_id" turi sutapti su Me handleriu
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"naudotojo_id": id,
 		"exp":          time.Now().Add(24 * time.Hour).Unix(),
@@ -156,6 +142,5 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	})
 
 	w.Header().Set("Content-Type", "application/json")
-	// Login.tsx naudoja data.role nukreipimui (/student arba /teacher)
 	json.NewEncoder(w).Encode(map[string]string{"role": role})
 }

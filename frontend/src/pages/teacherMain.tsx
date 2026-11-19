@@ -28,7 +28,7 @@ function TeacherMain() {
                         Pagrindinis
                     </Link>
 
-                    <Link to="/teacher/create" className="menu-link" style={{ fontWeight: "bold" }}>
+                    <Link to="/theoryCreate" className="menu-link" style={{ fontWeight: "bold" }}>
                         Nauja teorinė medžiaga +
                     </Link>
 
