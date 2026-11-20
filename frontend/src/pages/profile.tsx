@@ -43,7 +43,7 @@ function Profile() {
                                 Nauja teorinė medžiaga +
                             </Link>
 
-                            <Link to="/teacher/create" className="menu-link"  style={{ fontWeight: "bold" }}>
+                            <Link to="/testCreate" className="menu-link"  style={{ fontWeight: "bold" }}>
                                 Naujas testas +
                             </Link>
 

@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"os"
@@ -143,4 +144,45 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"role": role})
+}
+
+// Mokytojo ID gavimas iš JWT slapuko
+func (h *Handler) getTeacherID(r *http.Request) (int, error) {
+	cookie, err := r.Cookie("auth_token")
+	if err != nil {
+		return 0, errors.New("nerastas prisijungimo slapukas")
+	}
+
+	secret := os.Getenv("JWT_SECRET")
+	if secret == "" {
+		return 0, errors.New("nenustatytas JWT_SECRET")
+	}
+
+	token, err := jwt.Parse(cookie.Value, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("neteisingas tokeno metodas")
+		}
+
+		return []byte(secret), nil
+	})
+
+	if err != nil || token == nil || !token.Valid {
+		return 0, errors.New("neteisingas tokenas")
+	}
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return 0, errors.New("neteisingi tokeno duomenys")
+	}
+
+	id, ok := claims["naudotojo_id"].(float64)
+	if !ok {
+		return 0, errors.New("nerastas naudotojo ID")
+	}
+
+	if id <= 0 {
+		return 0, errors.New("neteisingas naudotojo ID")
+	}
+
+	return int(id), nil
 }

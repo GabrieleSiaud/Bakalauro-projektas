@@ -7,6 +7,7 @@ import TeacherMain from "./pages/teacherMain.tsx";
 import StudentMain from "./pages/studentMain.tsx";
 import Profile from "./pages/profile.tsx";
 import TheoryCreate from "./pages/theoryCreate.tsx";
+import TestCreate from "./pages/testCreate.tsx";
 
 function App() {
     return (
@@ -17,7 +18,7 @@ function App() {
                 <Route path="/student" element={<StudentMain />} />
                 <Route path="/teacher" element={<TeacherMain />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/testCreate" element={<TheoryCreate />} />
+                <Route path="/testCreate" element={<TestCreate />} />
                 <Route path="/theoryCreate" element={<TheoryCreate />} />
             </Routes>
     );

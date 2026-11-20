@@ -6,21 +6,6 @@
     min-width: 0;
 }
 
-.theory-heading {
-    margin-bottom: 30px;
-}
-
-.theory-heading h1 {
-    font-size: 28px;
-    margin: 0 0 10px;
-}
-
-.theory-heading p {
-    color: #777;
-    margin: 0;
-    font-size: 15px;
-}
-
 .theory-form {
     max-width: 900px;
     background: white;
@@ -218,6 +203,109 @@
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+
+/* ---------- TESTO KŪRIMAS ---------- */
+
+.test-question {
+    padding: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border: 1px solid #eeeef5;
+    border-radius: 12px;
+    background: #fcfbfe;
+}
+
+.test-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.test-question-header h3 {
+    margin: 0;
+    font-size: 17px;
+}
+
+.test-remove {
+    border: none;
+    background: none;
+    color: #d33;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.test-answer-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.test-answer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.test-answer input[type="radio"] {
+    width: 17px;
+    height: 17px;
+    accent-color: #8E3EE6;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.test-answer span {
+    font-weight: 600;
+    color: #8E3EE6;
+}
+
+.test-answer input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #ded9e5;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.test-answer input[type="text"]:focus {
+    outline: none;
+    border-color: #8E3EE6;
+    box-shadow: 0 0 0 2px rgba(142, 62, 230, 0.1);
+}
+
+.test-add-question {
+    width: 100%;
+    padding: 15px;
+    border: 2px dashed #d8c6ec;
+    border-radius: 9px;
+    background: #fcfaff;
+    color: #8E3EE6;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.test-add-question:hover {
+    background: #f7f0ff;
+    border-color: #8E3EE6;
+}
+
+@media (max-width: 768px) {
+    .test-question {
+        padding: 15px;
+    }
+
+    .test-answer {
+        gap: 7px;
+    }
+}
+
 
 @media (max-width: 768px) {
     .theory-content {

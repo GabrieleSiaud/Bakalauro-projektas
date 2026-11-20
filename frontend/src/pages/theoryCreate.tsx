@@ -25,7 +25,6 @@ function TheoryCreate() {
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Failo pasirinkimas
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
 
@@ -176,7 +175,7 @@ function TheoryCreate() {
                         Nauja teorinė medžiaga +
                     </Link>
 
-                    <Link to="/teacher/create" className="menu-link" style={{fontWeight: "bold"}}>
+                    <Link to="/testCreate" className="menu-link" style={{fontWeight: "bold"}}>
                         Naujas testas +
                     </Link>
 
