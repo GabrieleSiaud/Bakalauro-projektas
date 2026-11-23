@@ -13,6 +13,7 @@ func SetupRoutes(h *handlers.Handler) *chi.Mux {
 	r.Post("/api/login", h.Login)
 	r.Get("/api/me", h.Me)
 	r.Post("/api/theoryCreate", h.CreateTheory)
-
+	r.Post("/api/tests", h.CreateTest)
+	r.Get("/api/teacherContent", h.GetTeacherContent)
 	return r
 }

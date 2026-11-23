@@ -113,9 +113,7 @@
 .profile-post {
     padding: 20px;
     margin-top: 15px;
-
-    background: #f6f9fc;
-    border: 1px solid #e8edf3;
+    border: 3px solid #FEF0FF;
     border-radius: 12px;
 }
 
