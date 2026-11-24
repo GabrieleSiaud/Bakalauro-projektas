@@ -45,7 +45,7 @@ function Login() {
 
         } catch (error) {
             console.error("Prisijungimo klaida:", error);
-            setError("Nepavyko prisijungti prie serverio");
+            setError("Nepavyko prisijungti");
         }
     };
 

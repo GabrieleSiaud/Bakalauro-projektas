@@ -21,8 +21,7 @@ const pamokos = [
     "Istorija",
     "Biologija",
     "Fizika",
-    "Chemija",
-    "Kitas"
+    "Chemija"
 ];
 
 const createEmptyQuestion = (): Question => ({

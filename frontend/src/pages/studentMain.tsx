@@ -23,22 +23,17 @@ function StudentMain() {
             </header>
 
             <main className="dashboard">
-
                 <aside className="side-menu">
                     <Link to="/student" className="menu-link" style={{fontWeight: 'bold', color: '#8E3EE6'}}>
                         Pagrindinis
                     </Link>
 
-                    <Link to="/teacher/create" className="menu-link" style={{ fontWeight: "bold" }}>
+                    <Link to="/theoryRead" className="menu-link" style={{ fontWeight: "bold" }}>
                         Teorinė medžiaga
                     </Link>
 
                     <Link to="/tests" className="menu-link" style={{ fontWeight: "bold" }}>
                         Testai
-                    </Link>
-
-                    <Link to="/history" className="menu-link">
-                        Jūsų istorija
                     </Link>
 
                     <Link to="/progress" className="menu-link">

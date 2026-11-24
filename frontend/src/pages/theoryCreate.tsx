@@ -20,8 +20,7 @@ const dalykai = [
     "Istorija",
     "Biologija",
     "Fizika",
-    "Chemija",
-    "Kitas"
+    "Chemija"
 ];
 
 const createEmptyQuestion = (): Question => ({
