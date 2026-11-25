@@ -32,7 +32,7 @@ function StudentMain() {
                         Teorinė medžiaga
                     </Link>
 
-                    <Link to="/tests" className="menu-link" style={{ fontWeight: "bold" }}>
+                    <Link to="/testRead" className="menu-link">
                         Testai
                     </Link>
 

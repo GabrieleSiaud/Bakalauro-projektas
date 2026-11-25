@@ -1,22 +1,39 @@
 
+/* PAGRINDINIS TURINIO KONTEINERIS */
+
 .theory-container {
     flex: 1;
     min-width: 0;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 12px;
-    background-color: white;
-    padding: 16px 25px 30px 25px;
+    background-color: #fff;
+    padding: 25px;
     box-shadow: 0 4px 15px rgba(40, 30, 70, 0.04);
     border: 1px solid #eeeef5;
     border-radius: 18px;
+    box-sizing: border-box;
 }
 
+.theory-container > h1 {
+    font-size: 28px;
+    margin: 0 0 12px;
+    color: #242424;
+}
+
+.theory-container > p {
+    color: #777;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
 
 .theory-description {
     color: #777;
     margin-bottom: 30px;
     line-height: 1.6;
 }
+
+
+/* TEORIJOS IR TESTŲ SĄRAŠAS */
 
 .theory-list {
     display: flex;
@@ -28,41 +45,31 @@
 .theory-card {
     width: 100%;
     box-sizing: border-box;
-    background: white;
+    background: #fff;
     border: 1px solid #F2C2FF;
     border-radius: 12px;
     padding: 22px;
-    transition: 0.2s;
-}
-
-.theory-card:hover {
-    transform: translateX(3px);
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
-}
-
-.theory-card {
-    background: white;
-    border: 1px solid #F2C2FF;
-    border-radius: 12px;
-    padding: 22px;
-    transition: 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .theory-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
 }
 
 .theory-subject {
+    display: inline-block;
     color: #8E3EE6;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 10px;
 }
 
-.theory-card h3 {
+.theory-card h3,
+.theory-card h2 {
     font-size: 20px;
-    margin-bottom: 15px;
+    color: #292333;
+    margin: 0 0 15px;
 }
 
 .theory-author {
@@ -70,6 +77,9 @@
     font-size: 14px;
     margin-bottom: 20px;
 }
+
+
+/* MYGTUKAI */
 
 .theory-read-button {
     background: #8E3EE6;
@@ -79,11 +89,15 @@
     border-radius: 7px;
     cursor: pointer;
     font-weight: 600;
+    transition: background 0.2s;
 }
 
 .theory-read-button:hover {
     background: #702bc2;
 }
+
+
+/* PILNAS TEORIJOS TURINYS */
 
 .theory-full {
     background: white;
@@ -107,13 +121,20 @@
 }
 
 .theory-content {
-    margin-top: 30px;
+    margin-top: 15px;
     line-height: 1.8;
     font-size: 16px;
     color: #333;
-    white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
+
+.theory-full .theory-content {
+    margin-top: 30px;
+    white-space: pre-wrap;
+}
+
+
+/* FILTRAVIMAS */
 
 .theory-filter-wrapper {
     position: relative;
@@ -126,8 +147,9 @@
     gap: 10px;
     background: white;
     color: #242424;
-    border: 1px solid white;
+    border: 1px solid #eeeef5;
     border-radius: 9px;
+    padding: 10px 15px;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -136,28 +158,41 @@
 
 .theory-filter-toggle:hover {
     color: #8E3EE6;
+    border-color: #F2C2FF;
 }
-
 
 .theory-filters {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 12px;
-    padding: 18px;
+    margin: 22px 0;
+    padding: 16px;
+    background: #fcfaff;
     border: 1px solid #F2C2FF;
     border-radius: 12px;
 }
 
+.theory-filters span {
+    color: #555;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
 .theory-filter-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 9px 16px;
-    border: 1px solid white;
+    border: 1px solid #e8e1ef;
     border-radius: 20px;
     background: white;
     color: #555;
     font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
 
 .theory-filter-button:hover {
@@ -166,7 +201,14 @@
 }
 
 .theory-filter-button.active {
+    background: #8E3EE6;
     border-color: #8E3EE6;
+    color: white;
+}
+
+.theory-filter-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .selected-filter {
@@ -189,21 +231,129 @@
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .theory-filters {
-        gap: 8px;
-        padding: 12px;
-    }
 
-    .theory-filter-button {
-        padding: 8px 12px;
-        font-size: 13px;
-    }
+/* TESTO KLAUSIMAI */
+
+.test-question {
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #eee4f7;
+    border-radius: 14px;
+    padding: 22px;
+    margin: 22px 0;
+    transition: box-shadow 0.2s ease;
 }
+
+.test-question:hover {
+    box-shadow: 0 4px 15px rgba(40, 30, 70, 0.06);
+}
+
+.test-question h3 {
+    color: #292333;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin: 0 0 20px;
+}
+
+.test-answer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 11px;
+    width: 100%;
+}
+
+.test-answer label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid #eeeef5;
+    border-radius: 9px;
+    background: #fff;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.test-answer label:hover {
+    border-color: #D9B5F5;
+    background: #fcfaff;
+}
+
+.test-answer input[type="radio"] {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    accent-color: #8E3EE6;
+    cursor: pointer;
+}
+
+
+/* TESTO PATEIKIMAS */
+
+.theory-container > .theory-filter-button {
+    margin-top: 15px;
+}
+
+.theory-container > .theory-filter-button.active {
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+/* TESTO REZULTATAS */
+
+.theory-content h2 {
+    color: #292333;
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+.theory-content h3 {
+    color: #8E3EE6;
+    font-size: 19px;
+    margin-bottom: 12px;
+}
+
+.theory-content p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+
+/* KLAIDOS PRANEŠIMAS */
+
+.theory-error {
+    padding: 13px 16px;
+    margin: 15px 0;
+    border: 1px solid #f2b8b8;
+    border-radius: 9px;
+    background: #fff5f5;
+    color: #c0392b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* MOBILIOJI VERSIJA */
 
 @media (max-width: 768px) {
     .theory-container {
         padding: 20px;
+    }
+
+    .theory-container > h1 {
+        font-size: 24px;
     }
 
     .theory-full {
@@ -212,5 +362,63 @@
 
     .theory-full h1 {
         font-size: 24px;
+    }
+
+    .theory-filters {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .theory-filters span {
+        width: 100%;
+    }
+
+    .theory-filter-button {
+        padding: 8px 13px;
+        font-size: 13px;
+    }
+
+    .theory-card {
+        padding: 17px;
+    }
+
+    .test-question {
+        padding: 17px;
+    }
+
+    .test-question h3 {
+        font-size: 16px;
+    }
+
+    .test-answer label {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .theory-container {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .theory-container > h1 {
+        font-size: 22px;
+    }
+
+    .theory-card {
+        padding: 15px;
+    }
+
+    .test-question {
+        padding: 14px;
+    }
+
+    .theory-filters {
+        padding: 10px;
+    }
+
+    .theory-filter-button {
+        padding: 8px 11px;
     }
 }

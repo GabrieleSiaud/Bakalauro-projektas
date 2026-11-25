@@ -16,5 +16,8 @@ func SetupRoutes(h *handlers.Handler) *chi.Mux {
 	r.Post("/api/tests", h.CreateTest)
 	r.Get("/api/teacherContent", h.GetTeacherContent)
 	r.Get("/api/theories", h.GetTheories)
+	r.Get("/api/tests", h.GetTests)
+	r.Get("/api/tests/{id}", h.GetTestQuestions)
+	r.Post("/api/tests/{id}/submit", h.SubmitTest)
 	return r
 }

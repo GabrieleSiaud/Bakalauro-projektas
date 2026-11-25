@@ -14,18 +14,6 @@ interface TheoryItem {
     pavarde: string;
 }
 
-const dalykai = [
-    "Visi dalykai",
-    "Matematika",
-    "Informatika",
-    "Lietuvių kalba",
-    "Anglų kalba",
-    "Istorija",
-    "Biologija",
-    "Fizika",
-    "Chemija"
-];
-
 function TheoryRead() {
     const { naudotojas, kraunama } = useNaudotojas();
 
@@ -36,9 +24,9 @@ function TheoryRead() {
     const [turinysKraunamas, setTurinysKraunamas] = useState(true);
     const [klaida, setKlaida] = useState("");
     const [pasirinktasDalykas, setPasirinktasDalykas] =
-        useState("Visi dalykai");
+        useState("Visi");
 
-    const [rodytiFiltrus, setRodytiFiltrus] = useState(false);
+    // Gaunama teorinė medžiaga
     useEffect(() => {
         const gautiTeorija = async () => {
             try {
@@ -52,7 +40,7 @@ function TheoryRead() {
                 }
 
                 const data: TheoryItem[] = await response.json();
-                setTeorijos(data);
+                setTeorijos(data || []);
             } catch (error) {
                 console.error("TEORIJOS GAVIMO KLAIDA:", error);
                 setKlaida(
@@ -70,12 +58,24 @@ function TheoryRead() {
         }
     }, [naudotojas]);
 
-    const filtruotosTeorijos = teorijos.filter((teorija) => {
-        return (
-            pasirinktasDalykas === "Visi dalykai" ||
-            teorija.dalykas === pasirinktasDalykas
-        );
-    });
+    // Dalykai, pagal kuriuos galima filtruoti
+    const dalykai = [
+        "Visi",
+        "Matematika",
+        "Informatika",
+        "Lietuvių kalba",
+        "Anglų kalba",
+        "Istorija",
+        "Biologija",
+        "Fizika",
+        "Chemija"
+    ];
+
+    // Filtruojama teorinė medžiaga
+    const filtruotosTeorijos = teorijos.filter((teorija) =>
+        pasirinktasDalykas === "Visi" ||
+        teorija.dalykas === pasirinktasDalykas
+    );
 
     if (kraunama || !naudotojas) {
         return <p>Įkeliama profilio informacija...</p>;
@@ -107,7 +107,7 @@ function TheoryRead() {
                         Teorinė medžiaga
                     </Link>
 
-                    <Link to="/tests" className="menu-link">
+                    <Link to="/testRead" className="menu-link">
                         Testai
                     </Link>
 
@@ -125,22 +125,19 @@ function TheoryRead() {
                 </aside>
 
                 <section className="theory-container">
-                    <h2>Teorinė medžiaga</h2>
-
                     {pasirinktaTeorija ? (
+                        // Atidarytos teorijos vaizdas
                         <div className="theory-full">
                             <button
                                 className="theory-back"
                                 onClick={() => setPasirinktaTeorija(null)}
                             >
-                                ← Grįžti į teorijos sąrašą
+                                ← Grįžti prie teorinės medžiagos
                             </button>
 
-                            <p className="theory-subject">
-                                {pasirinktaTeorija.dalykas}
-                            </p>
-
-                            <h1>{pasirinktaTeorija.pavadinimas}</h1>
+                            <h1 className="read-title">
+                                {pasirinktaTeorija.pavadinimas}
+                            </h1>
 
                             <p className="theory-author">
                                 Mokytojas: {pasirinktaTeorija.vardas}{" "}
@@ -152,58 +149,42 @@ function TheoryRead() {
                             </div>
                         </div>
                     ) : (
+                        // Teorijų sąrašo vaizdas
                         <>
+                            <h1 className="read-title">
+                                Teorinė medžiaga
+                            </h1>
 
-                            <div className="theory-filter-wrapper">
-                                <button
-                                    className="theory-filter-toggle"
-                                    onClick={() => setRodytiFiltrus(!rodytiFiltrus)}
-                                >
-                                    Filtruoti
-                                    <span>
-                                        {rodytiFiltrus ? "▲" : "▼"}
-                                    </span>
-                                </button>
+                            {/* Filtravimas – toks pats kaip TestRead */}
+                            <div className="theory-filters">
+                                <span>Filtruoti pagal dalyką:</span>
 
-                                {pasirinktasDalykas !== "Visi dalykai" && (
-                                    <span className="selected-filter">
-                                {pasirinktasDalykas}
-                                        <button
-                                            onClick={() => setPasirinktasDalykas("Visi dalykai")}
-                                        >
-                                            ×
-                                        </button>
-                                    </span>
-                                )}
-
-                                {rodytiFiltrus && (
-                                    <div className="theory-filters">
-                                        {dalykai.map((dalykas) => (
-                                            <button
-                                                key={dalykas}
-                                                className={`theory-filter-button ${
-                                                    pasirinktasDalykas === dalykas ? "active" : ""
-                                                }`}
-                                                onClick={() => {
-                                                    setPasirinktasDalykas(dalykas);
-                                                    setRodytiFiltrus(false);
-                                                }}
-                                            >
-                                                {dalykas}
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
+                                {dalykai.map((dalykas) => (
+                                    <button
+                                        key={dalykas}
+                                        className={`theory-filter-button ${
+                                            pasirinktasDalykas === dalykas
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        onClick={() =>
+                                            setPasirinktasDalykas(dalykas)
+                                        }
+                                    >
+                                        {dalykas}
+                                    </button>
+                                ))}
                             </div>
-
 
                             {turinysKraunamas ? (
                                 <p>Įkeliama teorinė medžiaga...</p>
                             ) : klaida ? (
-                                <p>{klaida}</p>
+                                <p className="theory-error">{klaida}</p>
                             ) : filtruotosTeorijos.length === 0 ? (
                                 <p>
-                                    Šiam dalykui teorinės medžiagos dar nėra.
+                                    {pasirinktasDalykas === "Visi"
+                                        ? "Teorinės medžiagos dar nėra."
+                                        : "Šiam dalykui teorinės medžiagos dar nėra."}
                                 </p>
                             ) : (
                                 <div className="theory-list">
@@ -212,25 +193,29 @@ function TheoryRead() {
                                             className="theory-card"
                                             key={teorija.id}
                                         >
-                                            <p className="theory-subject">
-                                                {teorija.dalykas}
-                                            </p>
+                                            <div className="theory-content">
+                                                <span>
+                                                    {teorija.dalykas}
+                                                </span>
 
-                                            <h3>{teorija.pavadinimas}</h3>
+                                                <h2>
+                                                    {teorija.pavadinimas}
+                                                </h2>
 
-                                            <p className="theory-author">
-                                                Mokytojas: {teorija.vardas}{" "}
-                                                {teorija.pavarde}
-                                            </p>
+                                                <p>
+                                                    Mokytojas: {teorija.vardas}{" "}
+                                                    {teorija.pavarde}
+                                                </p>
 
-                                            <button
-                                                className="theory-read-button"
-                                                onClick={() =>
-                                                    setPasirinktaTeorija(teorija)
-                                                }
-                                            >
-                                                Skaityti teoriją →
-                                            </button>
+                                                <button
+                                                    className="theory-filter-button active"
+                                                    onClick={() =>
+                                                        setPasirinktaTeorija(teorija)
+                                                    }
+                                                >
+                                                    Skaityti teoriją →
+                                                </button>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
